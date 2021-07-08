@@ -20,7 +20,7 @@ public class PaintView extends View {
     private Path mPath;
 
     public PaintView(Context context, @Nullable AttributeSet attrs) {
-        super(context);
+        super(context, attrs);
 
         mPaint = new Paint();
         mPaint.setStyle(Paint.Style.STROKE);
