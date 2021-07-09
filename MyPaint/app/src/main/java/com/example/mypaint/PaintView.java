@@ -12,12 +12,15 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PaintView extends View {
     private Paint mPaint;
     private List<Point> mPoints;
     private Path mPath;
+
+    private HashMap<Integer, Path> camadas;
 
     public PaintView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -28,13 +31,20 @@ public class PaintView extends View {
         mPaint.setTextSize(20);
 
         mPath = new Path();
+
+        camadas = new HashMap<Integer, Path>();
     }
 
     //@Override
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
 
-        canvas.drawPath(mPath, mPaint);
+        camadas.forEach((Integer color, Path path) -> {
+            mPaint.setColor(color);
+            canvas.drawPath(path, mPaint);
+        });
+
+        postInvalidate();
     }
 
     //@Override
@@ -47,16 +57,26 @@ public class PaintView extends View {
                 mPath.moveTo(pointX, pointY);
                 break;
             case MotionEvent.ACTION_MOVE:
-                mPath.lineTo(pointX, pointY);
+                mPath.addCircle(pointX,pointY, 30, Path.Direction.CCW);
                 break;
             default:
                 return false;
         }
+
         postInvalidate();
         return true;
     }
 
     public void changeColorBrushTool(int color) {
         mPaint.setColor(color);
+
+        Path path = camadas.get(color);
+
+        if (path == null)
+            camadas.put(color, new Path());
+        else
+        {
+            mPath = path;
+        }
     }
 }
