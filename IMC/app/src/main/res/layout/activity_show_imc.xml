@@ -29,7 +29,7 @@
         android:text="Peso"
         android:textSize="13sp"
 
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="120dp"
 
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,7 +44,7 @@
         android:text="Altura"
         android:textSize="13sp"
 
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="150dp"
 
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -103,5 +103,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stcAltura" />
+
+    <TextView
+        android:id="@+id/stcIMCInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text=""
+        android:textSize="16sp"
+
+        android:layout_marginTop="15dp"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stcIMC" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
