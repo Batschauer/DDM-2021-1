@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="26dp"
+        android:text="Código:"
+        app:layout_constraintEnd_toStartOf="@+id/tvModelo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvModelo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="75dp"
+        android:text="Nome Carro:"
+        app:layout_constraintEnd_toStartOf="@+id/ivFoto"
+        app:layout_constraintStart_toEndOf="@+id/tvCodigo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPreco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="34dp"
+        android:text="Preço:"
+        app:layout_constraintEnd_toStartOf="@+id/tvPrecoVenda"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPrecoVenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="71dp"
+        android:text="Preço Venda:"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvPreco"
+        app:layout_constraintEnd_toStartOf="@+id/ivFoto"
+        app:layout_constraintStart_toEndOf="@+id/tvPreco" />
+
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="0dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvPrecoVenda"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+</androidx.constraintlayout.widget.ConstraintLayout>
