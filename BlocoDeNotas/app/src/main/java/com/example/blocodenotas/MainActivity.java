@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.blocodenotas.controller.NoteController;
 import com.example.blocodenotas.model.Note;
@@ -25,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.lstNotes);
     }
 
-    public void newNote(View view) {
-        Intent intent = new Intent(this, ActivityShowNote.class);
-        intent.putExtra("id note", 0);
-        startActivity(intent);
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -46,5 +42,46 @@ public class MainActivity extends AppCompatActivity {
                 notes);
 
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NoteController controller = new NoteController(getApplicationContext());
+                ArrayList<Note> notes = controller.getAllNotes();
+
+                int idNote = notes.get(position).getId();
+
+                Intent intent = new Intent(getApplicationContext(), ActivityShowNote.class);
+                intent.putExtra("id_note", idNote);
+                startActivity(intent);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                NoteController controller = new NoteController(getApplicationContext());
+                ArrayList<Note> notes = controller.getAllNotes();
+
+                Note note = notes.get(position);
+                int idNote = note.getId();
+
+                boolean itemRemoved = controller.deleteNote(idNote);
+
+                if (itemRemoved) {
+                    Toast.makeText(getApplicationContext(), "Nota " + note.getTitle() + " foi removido.", Toast.LENGTH_LONG).show();
+                }
+
+                adapter.remove(note.getTitle());
+                adapter.notifyDataSetChanged();
+
+                return true;
+            }
+        });
+    }
+
+    public void newNote(View view) {
+        Intent intent = new Intent(this, ActivityShowNote.class);
+        intent.putExtra("id_note", 0);
+        startActivity(intent);
     }
 }

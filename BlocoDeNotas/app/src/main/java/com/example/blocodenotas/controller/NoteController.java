@@ -20,6 +20,10 @@ public class NoteController {
         return noteDAO.insertNote(note);
     }
 
+    public Note getNote(int idNote) {
+        return noteDAO.getNote(idNote);
+    }
+
     public ArrayList<Note> getAllNotes() {
         return noteDAO.getNotes();
     }
@@ -31,5 +35,13 @@ public class NoteController {
         }
 
         return notesAsString;
+    }
+
+    public Note updateNote(Note note) {
+        return noteDAO.updateNote(note);
+    }
+
+    public boolean deleteNote(int idNote) {
+        return noteDAO.deleteNote(idNote);
     }
 }

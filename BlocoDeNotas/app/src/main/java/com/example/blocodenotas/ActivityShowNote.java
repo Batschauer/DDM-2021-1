@@ -11,6 +11,8 @@ import com.example.blocodenotas.model.Note;
 
 public class ActivityShowNote extends AppCompatActivity {
 
+    private Note note = null;
+
     private NoteController controller;
     private EditText edtTitle, edtDescription;
 
@@ -23,9 +25,27 @@ public class ActivityShowNote extends AppCompatActivity {
 
         edtTitle = findViewById(R.id.edtTitle);
         edtDescription = findViewById(R.id.edtDescription);
+
+        Bundle bundle = getIntent().getExtras();
+
+        int idNote = bundle.getInt("id_note");
+        if (idNote != 0)
+            loadNote(idNote);
+    }
+
+    private void loadNote(int idNote) {
+        note = controller.getNote(idNote);
+
+        edtTitle.setText(note.getTitle());
+        edtDescription.setText(note.getDescription());
     }
 
     public void saveNote(View view) {
-        controller.insertNewNote(new Note(null, edtTitle.getText().toString(), edtDescription.getText().toString()));
+        if (note == null) {
+            note = controller.insertNewNote(new Note(null, edtTitle.getText().toString(), edtDescription.getText().toString()));
+        }
+        else {
+            note = controller.updateNote(new Note(note.getId(), edtTitle.getText().toString(), edtDescription.getText().toString()));
+        }
     }
 }

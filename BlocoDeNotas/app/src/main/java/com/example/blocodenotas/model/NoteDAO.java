@@ -2,6 +2,7 @@ package com.example.blocodenotas.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -28,6 +29,23 @@ public class NoteDAO {
         return note;
     }
 
+    public Note getNote(int idNote) {
+        Cursor cursor = dataBase.rawQuery("SELECT * FROM notes WHERE id=?;", new String[]{ Integer.toString(idNote)});
+        cursor.moveToFirst();
+
+        Note note = new Note();
+
+        while (!cursor.isAfterLast()) {
+            note.setId(cursor.getInt(0));
+            note.setTitle(cursor.getString(1));
+            note.setDescription(cursor.getString(2));
+
+            cursor.moveToNext();
+        }
+
+        return note;
+    }
+
     public ArrayList<Note> getNotes() {
         ArrayList<Note> notes = new ArrayList<Note>();
 
@@ -45,5 +63,19 @@ public class NoteDAO {
         }
 
         return notes;
+    }
+
+    public Note updateNote(Note note) {
+        ContentValues content = new ContentValues();
+        content.put("title", note.getTitle());
+        content.put("description", note.getDescription());
+
+        dataBase.update("notes", content, "id=?", new String[]{Integer.toString(note.getId())});
+
+        return note;
+    }
+
+    public boolean deleteNote(int idNote) {
+        return dataBase.delete("notes", "id=?", new String[]{Integer.toString(idNote)}) > 0;
     }
 }
